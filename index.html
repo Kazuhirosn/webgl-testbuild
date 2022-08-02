@@ -48,6 +48,11 @@
         updateBannerVisibility();
       }
 
+      function setCanvasOrientation() {
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+      }
+
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/webgl-testbuild.loader.js";
       var config = {
@@ -104,6 +109,9 @@
           alert(message);
         });
       };
+        window.addEventListener("orientationchange", () => {
+          setCanvasOrientation();
+        });
       document.body.appendChild(script);
     </script>
   </body>
