@@ -49,8 +49,11 @@
       }
 
       function setCanvasOrientation() {
+        var beforeWidth = canvas.style.width;
+        var beforeheight = canvas.style.height;
         canvas.style.width = window.innerWidth + 'px';
         canvas.style.height = window.innerHeight + 'px';
+          unityShowBanner('bw: ${beforeWidth}, bh: ${beforeheight}, aw: ${canvas.style.width}, ah: ${canvas.style.height}');
       }
 
       var buildUrl = "Build";
