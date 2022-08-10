@@ -24,7 +24,25 @@
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var warningBanner = document.querySelector("#unity-warning");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+        var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+
+        function unityShowBanner(msg, type) {
+            function updateBannerVisibility() {
+                warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+            }
+            var div = document.createElement('div');
+            div.innerHTML = msg;
+            warningBanner.appendChild(div);
+            if (type == 'error') div.style = 'background: red; padding: 10px;';
+            else {
+                if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+                setTimeout(function () {
+                    warningBanner.removeChild(div);
+                    updateBannerVisibility();
+                }, 5000);
+            }
+            updateBannerVisibility();
+        }
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/webgl-testbuild.loader.js";
@@ -38,7 +56,6 @@
         productVersion: "0.1",
       };
 
-      var hideFullScreenButton = "";
       var canFullscreen = (function () {
         for (const key of [
             'exitFullscreen',
@@ -76,9 +93,7 @@
         }).then((unityInstance) => {
             loadingBar.style.display = "none";
             if (canFullscreen) {
-                if (!hideFullScreenButton) {
-                    fullscreenButton.style.display = "";
-                }
+                unityShowBanner('true');
                 fullscreenButton.onclick = () => {
                     unityInstance.SetFullscreen(1);
                 }
