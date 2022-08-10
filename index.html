@@ -44,6 +44,7 @@
             updateBannerVisibility();
         }
 
+        var hideFullScreenButton = "";
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/webgl-testbuild.loader.js";
       var config = {
@@ -94,6 +95,11 @@
             loadingBar.style.display = "none";
             if (canFullscreen) {
                 unityShowBanner('true');
+                if (!hideFullScreenButton) {
+                    unityShowBanner('true');
+                    fullscreenButton.style.display = "";
+                }
+
                 fullscreenButton.onclick = () => {
                     unityInstance.SetFullscreen(1);
                 }
